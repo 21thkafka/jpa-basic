@@ -59,9 +59,16 @@ public class JpaMain {
  //           em.persist(member2);
             //버퍼링 기능 사용 가능
 
-            Member member = em.find(Member.class, 150L);
-            member.setName("zzzzz");    //기존 데이터 값 변경할때는 persist 할 필요 없음
+ //           Member member = em.find(Member.class, 150L);
+ //           member.setName("zzzzz");    //기존 데이터 값 변경할때는 persist 할 필요 없음
                                         //최초 db 값을 읽어 스냇샷을 생성, commit 전에 스냇샷과 엔티티를 비교하고 변경된 것을 감지하여 변경
+
+            //플러쉬 발생 : 변경감지, 수정된 엔티티 쓰기 지연 sql 저장소에 등록, 쓰기지연sql 저장소의 쿼리를 데이터베이스에 전송
+            //em.flush() - 직접 호출 / 트랜잭션 커밋 - 플러시 자동 호출 / jpql 쿼리 실행 - 플러시 지동호출
+            Member member = new Member(200L, "shin0808");
+            em.persist(member);
+            em.flush(); //플러쉬는 영송석 컨텍스트를 비우지 않음, 영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화시킴
+
             System.out.println("======================");
 
             tx.commit();    //여기에서 직접 db에 쿼리가 날아감. 그 이전에는 캐시에만 저장되어 있고 실질적인 쿼리 실행 X
