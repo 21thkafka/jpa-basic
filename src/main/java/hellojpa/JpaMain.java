@@ -69,6 +69,12 @@ public class JpaMain {
             em.persist(member);
             em.flush(); //플러쉬는 영송석 컨텍스트를 비우지 않음, 영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화시킴
 
+            Member member2 = em.find(Member.class, 200L);
+            member2.setName("AAAAAA"); //영속
+
+            em.detach(member2); //준영속 - commit을 해도 db에 반영 안됨, member2 name은 계속 shin0808임
+            em.close(); // 영속성 컨테스트를 초기화함
+
             System.out.println("======================");
 
             tx.commit();    //여기에서 직접 db에 쿼리가 날아감. 그 이전에는 캐시에만 저장되어 있고 실질적인 쿼리 실행 X
