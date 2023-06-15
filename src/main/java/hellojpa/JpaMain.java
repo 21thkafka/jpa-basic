@@ -25,10 +25,10 @@ public class JpaMain {
             em.persist(member);*/
 
             //update 할때
-            Member findMember = em.find(Member.class, 1L);
+  /*          Member findMember = em.find(Member.class, 1L);
             System.out.println("findMember id : " + findMember.getId());
             System.out.println("findMember name : " + findMember.getName());
-            findMember.setName("신명현");
+            findMember.setName("신명현");*/
 
             //delete 할때
 //            em.remove(findMember);
