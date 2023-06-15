@@ -1,5 +1,7 @@
 package hellojpa;
 
+import RoleType.RoleType;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -43,14 +45,16 @@ public class JpaMain {
                 System.out.println("member = " + member.getName());
             }*/
 
-   /*         Member member = new Member();
-            member.setId(10L);
-            member.setName("HelloJPA");
+            Member member = new Member();
+            member.setId(12L);
+            member.setUsername("HelloJPA3");
+            member.setRoleType(RoleType.GUEST);
             em.persist(member);
 
-            Member anotherMember = em.find(Member.class, 10L);
+            Member anotherMember = em.find(Member.class, 12L);
             System.out.println("anotherMember id : " + anotherMember.getId());
-            System.out.println("anotherMember name : " + anotherMember.getName());*/
+            System.out.println("anotherMember name : " + anotherMember.getUsername());
+            System.out.println("anotherMember getRoleType : " + anotherMember.getRoleType());
 
  //           Member member1 = new Member(150L, "A");
  //           Member member2 = new Member(160L, "B");
@@ -65,7 +69,7 @@ public class JpaMain {
 
             //플러쉬 발생 : 변경감지, 수정된 엔티티 쓰기 지연 sql 저장소에 등록, 쓰기지연sql 저장소의 쿼리를 데이터베이스에 전송
             //em.flush() - 직접 호출 / 트랜잭션 커밋 - 플러시 자동 호출 / jpql 쿼리 실행 - 플러시 지동호출
-            Member member = new Member(200L, "shin0808");
+        /*    Member member = new Member(200L, "shin0808");
             em.persist(member);
             em.flush(); //플러쉬는 영송석 컨텍스트를 비우지 않음, 영속성 컨텍스트의 변경 내용을 데이터베이스에 동기화시킴
 
@@ -73,7 +77,7 @@ public class JpaMain {
             member2.setName("AAAAAA"); //영속
 
             em.detach(member2); //준영속 - commit을 해도 db에 반영 안됨, member2 name은 계속 shin0808임
-            em.close(); // 영속성 컨테스트를 초기화함
+         */  em.close(); // 영속성 컨테스트를 초기화함
 
             System.out.println("======================");
 
