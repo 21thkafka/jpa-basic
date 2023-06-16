@@ -46,21 +46,25 @@ public class JpaMain {
             }*/
 
             Member member = new Member();
-            member.setId(12L);
+        //    member.setId(12L);
             member.setUsername("HelloJPA3");
             member.setRoleType(RoleType.GUEST);
             em.persist(member);
 
-            Member anotherMember = em.find(Member.class, 12L);
+            Member anotherMember = em.find(Member.class, 1L);
             System.out.println("anotherMember id : " + anotherMember.getId());
             System.out.println("anotherMember name : " + anotherMember.getUsername());
             System.out.println("anotherMember getRoleType : " + anotherMember.getRoleType());
 
- //           Member member1 = new Member(150L, "A");
- //           Member member2 = new Member(160L, "B");
+            Member member1 = new Member();
+            member1.setUsername("a");
+            member1.setRoleType(RoleType.GUEST);
+            Member member2 = new Member();
+            member2.setUsername("b");
+            member2.setRoleType(RoleType.GUEST);
 
- //           em.persist(member1);
- //           em.persist(member2);
+            em.persist(member1);
+            em.persist(member2);
             //버퍼링 기능 사용 가능
 
  //           Member member = em.find(Member.class, 150L);
@@ -77,7 +81,8 @@ public class JpaMain {
             member2.setName("AAAAAA"); //영속
 
             em.detach(member2); //준영속 - commit을 해도 db에 반영 안됨, member2 name은 계속 shin0808임
-         */  em.close(); // 영속성 컨테스트를 초기화함
+            em.close(); // 영속성 컨테스트를 초기화함
+         */핑
 
             System.out.println("======================");
 

@@ -10,10 +10,24 @@ import java.util.Date;
 
 @Entity
 //@Table(name="MBR")  //맵핑할 테이블 명칭, uniqueConstraints 설정으로 유니크키 설정 가능
+@SequenceGenerator(
+        name = "MEMBER_SEQ_GENERATOR",
+        sequenceName = "MEMBER_SEQ",
+        initialValue = 1, allocationSize = 50)   // 기본키 SEQUENCE 전략을 취할때 테이블마다 시퀀스 이름 및 설정을 해줄 수 있음
+                                                 // allocationSize 50으로 설정하면 먼저 db에서 시퀀스 50개 땡겨와 메모리에서 50개를 사용하고 쿼리 날림
+/*@TableGenerator(
+        name="MEMBER_SEQ_GENERATOR",
+        table="MY_SEQUENCES",
+        pkColumnValue = "MEMBER_SEQ", allocationSize = 1)*/   // 기본키 TABLE 전략시 설정
 public class Member {
 
-    @Id
-    private Long id;
+    @Id //@Id만 사용하면 직접할당
+    @GeneratedValue(strategy = GenerationType.SEQUENCE,
+        generator = "MEMBER_SEQ_GENERATOR")     //자동생성 IDENTITY(db에게 맡김 주로 MySQL,PostgreSQL persist에서 커밋 일어남), SEQUENCE(시퀀스 생성하여 맡김, 오라클에 사용),
+//     @GeneratedValue(strategy = GenerationType.TABLE,
+//        generator = "MEMBER_SEQ_GENERATOR")      // TABLE(키 생성 전용 테이블을 하나 만들어서 데이터베이스 시퀀스룰 흉내내는 전략, 모든 데이터베이스에 사용할 수 있지만 성능 안좋음),
+                        // AUTO가 있음
+    private Long id;    //10억이 넘어갈 수 있으므로 Integer보다 Long 권장
 
  //   @Column(unique = true, length = 10) //유니크 키 설정, 길이 제한 설정 가능
     @Column(name = "name")    //insertable, updatable 변경 가능
