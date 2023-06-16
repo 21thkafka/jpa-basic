@@ -82,7 +82,7 @@ public class JpaMain {
 
             em.detach(member2); //준영속 - commit을 해도 db에 반영 안됨, member2 name은 계속 shin0808임
             em.close(); // 영속성 컨테스트를 초기화함
-         */핑
+         */
 
             System.out.println("======================");
 
