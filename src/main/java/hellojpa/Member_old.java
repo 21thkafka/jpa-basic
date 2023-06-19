@@ -19,7 +19,7 @@ import java.util.Date;
         name="MEMBER_SEQ_GENERATOR",
         table="MY_SEQUENCES",
         pkColumnValue = "MEMBER_SEQ", allocationSize = 1)*/   // 기본키 TABLE 전략시 설정
-public class Member {
+public class Member_old {
 
     @Id //@Id만 사용하면 직접할당
     @GeneratedValue(strategy = GenerationType.SEQUENCE,
@@ -91,7 +91,7 @@ public class Member {
     @Transient // db와 상관없이 메모리에서만 쓰고 싶을 때 사용
     private int temp;
 
-    public Member(){
+    public Member_old(){
 
     }
 

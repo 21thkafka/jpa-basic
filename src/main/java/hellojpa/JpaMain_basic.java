@@ -1,14 +1,11 @@
 package hellojpa;
 
-import RoleType.RoleType;
-
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
-import java.util.List;
 
-public class JpaMain {
+public class JpaMain_basic {
 
     public static void main(String[] args){
         EntityManagerFactory emf = Persistence.createEntityManagerFactory("hello");
@@ -45,9 +42,9 @@ public class JpaMain {
                 System.out.println("member = " + member.getName());
             }*/
 
-            Member member = new Member();
+        //    Member member = new Member();
         //    member.setId(12L);
-            member.setUsername("HelloJPA3");
+  /*          member.setUsername("HelloJPA3");
             member.setRoleType(RoleType.GUEST);
             em.persist(member);
 
@@ -64,7 +61,7 @@ public class JpaMain {
             member2.setRoleType(RoleType.GUEST);
 
             em.persist(member1);
-            em.persist(member2);
+            em.persist(member2); */
             //버퍼링 기능 사용 가능
 
  //           Member member = em.find(Member.class, 150L);
