@@ -1,6 +1,8 @@
 package domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class Member {
@@ -12,6 +14,9 @@ public class Member {
     private String city;
     private String street;
     private String zipcode;
+
+    @OneToMany(mappedBy = "member")
+    private List<Order> orders = new ArrayList<>(); //양방향, 양방향은 가급적 사용하지 않는 것을 권장
 
     public Long getId() {
         return id;
