@@ -1,6 +1,7 @@
 import domain.Member;
 import domain.Order;
 import domain.OrderItem;
+import hellojpa.Movie;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -18,7 +19,7 @@ public class JpaMain {
         tx.begin();
 
         try {
-            Order order = new Order();
+/*            Order order = new Order();
 //            order.addOrderItem(new OrderItem);
             em.persist(order);
 
@@ -26,7 +27,21 @@ public class JpaMain {
             orderItem.setOrder(order);              //그러나 실무에서는 복잡한 jpql 작성하다  양방향 필요한 경우가 많음.
                                                     //그래도 최대한 단방향으로 만드는 게 이상적
 
-            em.persist(orderItem);
+            em.persist(orderItem);*/
+
+            Movie movie = new Movie();
+            movie.setDirector("놀란");
+            movie.setActor("제시카 차스테인");
+            movie.setName("인터 스텔라");
+            movie.setPrice(10000);
+
+            em.persist(movie);
+
+            em.flush();
+            em.clear();
+
+            Movie findMovie = em.find(Movie.class, movie.getId());
+            System.out.println("findMovie : " + findMovie);
 
             tx.commit();
         } catch (Exception e){
