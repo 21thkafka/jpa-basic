@@ -2,11 +2,13 @@ import domain.Member;
 import domain.Order;
 import domain.OrderItem;
 import hellojpa.Movie;
+import hellojpa.Product;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 
 public class JpaMain {
 
@@ -29,7 +31,7 @@ public class JpaMain {
 
             em.persist(orderItem);*/
 
-            Movie movie = new Movie();
+    /*        Movie movie = new Movie();
             movie.setDirector("놀란");
             movie.setActor("제시카 차스테인");
             movie.setName("인터 스텔라");
@@ -42,6 +44,17 @@ public class JpaMain {
 
             Movie findMovie = em.find(Movie.class, movie.getId());
             System.out.println("findMovie : " + findMovie);
+
+     */
+            Product product = new Product();
+            product.setName("testProduct");
+            product.setRegId("testId");
+            product.setRegDate(LocalDateTime.now());
+
+            em.persist(product);
+
+            em.flush();
+            em.clear();
 
             tx.commit();
         } catch (Exception e){

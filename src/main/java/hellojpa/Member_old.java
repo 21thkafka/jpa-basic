@@ -19,7 +19,7 @@ import java.util.Date;
         name="MEMBER_SEQ_GENERATOR",
         table="MY_SEQUENCES",
         pkColumnValue = "MEMBER_SEQ", allocationSize = 1)*/   // 기본키 TABLE 전략시 설정
-public class Member_old {
+public class Member_old extends BaseEntity {
 
     @Id //@Id만 사용하면 직접할당
     @GeneratedValue(strategy = GenerationType.SEQUENCE,

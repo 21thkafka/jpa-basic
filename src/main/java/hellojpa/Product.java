@@ -10,7 +10,7 @@ import javax.persistence.*;
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)    //각 서브 타입 엔티티 테이블만 생성, 매우 비권장 전략
                                                             // insert할때는 간편하지만 부모 클래스로 조회할때 union 사용하는 복잡한 쿼리 생성
 @DiscriminatorColumn(name = "DIS_TYPE")    //D_TYPE 서브 타입 엔티티 명이 들어감. 넣어주는 것이 좋음, 이름 지정 가능, TABLE_PER_CLASS 전략에선 필요없음
-public class Product {
+public class Product extends BaseEntity {   //BaseEntity는 Mapped Superclass
 //public abstract class Product {     //TABLE_PER_CLASS 전략으로 하면 추상 클래스로 변경해야함
     @Id
     @GeneratedValue
