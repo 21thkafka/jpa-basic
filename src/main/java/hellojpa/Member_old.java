@@ -1,6 +1,7 @@
 package hellojpa;
 
 import RoleType.RoleType;
+import domain.BaseEntity;
 
 import javax.persistence.*;
 import java.math.BigDecimal;

@@ -1,7 +1,4 @@
-import domain.Member;
-import domain.Order;
-import domain.OrderItem;
-import hellojpa.Movie;
+import domain.Book;
 import hellojpa.Product;
 
 import javax.persistence.EntityManager;
@@ -43,10 +40,10 @@ public class JpaMain {
             em.clear();
 
             Movie findMovie = em.find(Movie.class, movie.getId());
-            System.out.println("findMovie : " + findMovie);
+            System.out.println("findMovie : " + findMovie);*/
 
-     */
-            Product product = new Product();
+
+    /*        Product product = new Product();
             product.setName("testProduct");
             product.setRegId("testId");
             product.setRegDate(LocalDateTime.now());
@@ -54,7 +51,13 @@ public class JpaMain {
             em.persist(product);
 
             em.flush();
-            em.clear();
+            em.clear(); */
+
+            Book book = new Book();
+            book.setName("JPA");
+            book.setAuthor("신명현");
+
+            em.persist(book);
 
             tx.commit();
         } catch (Exception e){
