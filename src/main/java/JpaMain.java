@@ -1,4 +1,6 @@
 import domain.Book;
+import domain.Child;
+import domain.Parent;
 import hellojpa.Product;
 
 import javax.persistence.EntityManager;
@@ -25,6 +27,7 @@ public class JpaMain {
             OrderItem orderItem = new OrderItem();  //양방향 안해도 이렇게 해도 가능
             orderItem.setOrder(order);              //그러나 실무에서는 복잡한 jpql 작성하다  양방향 필요한 경우가 많음.
                                                     //그래도 최대한 단방향으로 만드는 게 이상적
+
 
             em.persist(orderItem);*/
 
@@ -53,11 +56,38 @@ public class JpaMain {
             em.flush();
             em.clear(); */
 
-            Book book = new Book();
+    /*        Book book = new Book();
             book.setName("JPA");
             book.setAuthor("신명현");
 
             em.persist(book);
+
+            em.flush();
+            em.clear();
+
+            Book findBook = em.find(Book.class, book.getId());
+            System.out.println("findBookId : " + findBook.getId());
+            System.out.println("findBookName : " + findBook.getName());*/
+
+            Child child1 = new Child();
+            Child child2 = new Child();
+
+            Parent parent = new Parent();
+            parent.addChild(child1);
+            parent.addChild(child2);
+
+            em.persist(parent);
+            em.persist(child1);     //cascade를 사용하면 parent 객체 persist할 때 연관된 child도 영속화 시킬 수 있음
+            em.persist(child2);     //cascade를 사용하면 이부분 생략 가능
+                                      //하나의 부모 엔티티에 완전히 종속적일때 쓸 수 있음 ex)첨부파일, 다른 엔티티에서 자식 엔티티를 관여하면 쓸 수 없음
+            em.flush();
+            em.clear();
+
+            Parent findParent = em.find(Parent.class, parent.getId());
+            findParent.getChildList().remove(0);    //orphanRemoval = true가 설정 되면 부모 객체와 끊어질때 지워짐
+                                                          //db cascade 설정과 같음, 부모 엔티티가 단독으로 자식 엔티티 관리할때만 사용
+
+            em.remove(findParent);
 
             tx.commit();
         } catch (Exception e){
