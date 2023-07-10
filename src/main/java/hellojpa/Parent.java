@@ -1,4 +1,6 @@
-package domain;
+package hellojpa;
+
+import hellojpa.Child;
 
 import javax.persistence.*;
 import java.util.ArrayList;
