@@ -1,3 +1,5 @@
+import domain.Member;
+import domain.Period;
 import hellojpa.Child;
 import hellojpa.Parent;
 
@@ -5,6 +7,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import java.time.LocalDateTime;
 
 public class JpaMain {
 
@@ -66,7 +69,7 @@ public class JpaMain {
             System.out.println("findBookId : " + findBook.getId());
             System.out.println("findBookName : " + findBook.getName());*/
 
-            Child child1 = new Child();
+      /*      Child child1 = new Child();
             Child child2 = new Child();
 
             Parent parent = new Parent();
@@ -84,7 +87,14 @@ public class JpaMain {
             findParent.getChildList().remove(0);    //orphanRemoval = true가 설정 되면 부모 객체와 끊어질때 지워짐
                                                           //db cascade 설정과 같음, 부모 엔티티가 단독으로 자식 엔티티 관리할때만 사용
 
-            em.remove(findParent);
+            em.remove(findParent);*/
+
+            Member member = new Member();
+            member.setName("hellouser");
+            LocalDateTime afterTime = LocalDateTime.now().plusDays(2);
+            member.setPeriod(new Period(LocalDateTime.now(), afterTime));
+
+            em.persist(member);
 
             tx.commit();
         } catch (Exception e){

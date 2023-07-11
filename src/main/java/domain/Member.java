@@ -1,6 +1,7 @@
 package domain;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +15,17 @@ public class Member extends BaseEntity {
     private String city;
     private String street;
     private String zipcode;
+
+    @Embedded
+    private Period period;
+
+    public Period getPeriod() {
+        return period;
+    }
+
+    public void setPeriod(Period period) {
+        this.period = period;
+    }
 
     @OneToMany(mappedBy = "member")
     private List<Order> orders = new ArrayList<>(); //양방향, 양방향은 가급적 사용하지 않는 것을 권장
@@ -57,4 +69,6 @@ public class Member extends BaseEntity {
     public void setZipcode(String zipcode) {
         this.zipcode = zipcode;
     }
+
+
 }
