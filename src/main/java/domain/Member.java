@@ -3,7 +3,9 @@ package domain;
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 public class Member extends BaseEntity {
@@ -12,9 +14,25 @@ public class Member extends BaseEntity {
     @Column(name = "MEMBER_ID")
     private Long id;
     private String name;
-    private String city;
-    private String street;
-    private String zipcode;
+
+    @Embedded
+    private Address homeAddress;
+
+    @ElementCollection
+    @CollectionTable(name="FAVORITE_FOODS", joinColumns =
+        @JoinColumn(name = "MEMBER_ID"))
+    @Column(name = "FOOD_NAME")
+    private Set<String> favoriteFoods = new HashSet<>();
+
+//    @OrderColumn(name = "address_history_order")
+//    @ElementCollection
+//    @CollectionTable(name="ADDRESS", joinColumns =
+//        @JoinColumn(name = "MEMBER_ID"))
+//    private List<Address> addressHistory = new ArrayList<>();
+
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinColumn(name = "MEMBER_ID")
+    private List<AddressEntity> addressHistory = new ArrayList<>();
 
     @Embedded
     private Period period;
@@ -46,29 +64,27 @@ public class Member extends BaseEntity {
         this.name = name;
     }
 
-    public String getCity() {
-        return city;
+    public Address getHomeAddress() {
+        return homeAddress;
     }
 
-    public void setCity(String city) {
-        this.city = city;
+    public void setHomeAddress(Address homeAddress) {
+        this.homeAddress = homeAddress;
     }
 
-    public String getStreet() {
-        return street;
+    public Set<String> getFavoriteFoods() {
+        return favoriteFoods;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setFavoriteFoods(Set<String> favoriteFoods) {
+        this.favoriteFoods = favoriteFoods;
     }
 
-    public String getZipcode() {
-        return zipcode;
+    public List<AddressEntity> getAddressHistory() {
+        return addressHistory;
     }
 
-    public void setZipcode(String zipcode) {
-        this.zipcode = zipcode;
+    public void setAddressHistory(List<AddressEntity> addressHistory) {
+        this.addressHistory = addressHistory;
     }
-
-
 }

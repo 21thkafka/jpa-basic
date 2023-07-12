@@ -1,3 +1,5 @@
+import domain.Address;
+import domain.AddressEntity;
 import domain.Member;
 import domain.Period;
 import hellojpa.Child;
@@ -8,6 +10,8 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 public class JpaMain {
 
@@ -89,12 +93,58 @@ public class JpaMain {
 
             em.remove(findParent);*/
 
-            Member member = new Member();
+            //임베디드값 타입 연습
+   /*         Member member = new Member();
             member.setName("hellouser");
             LocalDateTime afterTime = LocalDateTime.now().plusDays(2);
             member.setPeriod(new Period(LocalDateTime.now(), afterTime));
 
+            em.persist(member);*/
+
+            //값타입 컬렉션 연습
+            Member member = new Member();
+            member.setName("member1");
+            member.setHomeAddress(new Address("homeCity1", "street2", "111-222"));
+            member.getFavoriteFoods().add("치킨");
+            member.getFavoriteFoods().add("초밥");
+            member.getFavoriteFoods().add("피자");
+
+        //    member.getAddressHistory().add(new Address("oldCity1", "street2", "111-222"));
+        //    member.getAddressHistory().add(new Address("oldCity2", "street3", "111-222"));
+            //member만 persist해도 homeAddress, addressHistory, favoriteFood 같이 persist 됨, member에 종속됨
+            //값타입 컬렉션 대신 addressEntity로 1대다 사용시 아래와 같이 수정
+            member.getAddressHistory().add(new AddressEntity("oldCity1", "street2", "111-222"));
+            member.getAddressHistory().add(new AddressEntity("oldCity2", "street3", "111-222"));
+
             em.persist(member);
+
+            em.flush();
+            em.clear();
+
+            System.out.println("================ START =============");
+            Member findMember = em.find(Member.class, member.getId());
+            //컬렉션들은 지연로딩
+        /*    List<Address> addressesHistory = findMember.getAddressHistory();
+            for (Address address : addressesHistory){
+                System.out.println("address = " + address.getCity());
+            }
+            Set<String> favoriteFoods = findMember.getFavoriteFoods();
+            for (String favoriteFood : favoriteFoods){
+                System.out.println("favoriteFood = " + favoriteFood);
+            }*/
+            //homeCity -> newCity
+//            findMember.getHomeAddress().setCity("newCity"); //이렇게 수정하면 안됨
+            Address old = findMember.getHomeAddress();
+            findMember.setHomeAddress(new Address("newCity", old.getStreet(), old.getZipcode()));
+
+            //치킨 -> 한식
+            findMember.getFavoriteFoods().remove("치킨");
+            findMember.getFavoriteFoods().add("한식");
+
+            //old1 -> new1, member 도메인에 equals가 제대로 구현되어 있어야함, 해당 member_id인 address 데이터를 다 지우고 insert 방식
+            //findMember.getAddressHistory().remove(new Address("oldCity1", "street2", "111-222"));
+            //findMember.getAddressHistory().add(new Address("newCity1", "street2", "111-222"));
+            //다루기 까다로우므로 실무에서 값타입 컬렉션 대신 1 대 다 엔티티 관계를 고려
 
             tx.commit();
         } catch (Exception e){
