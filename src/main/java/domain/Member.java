@@ -16,13 +16,13 @@ public class Member extends BaseEntity {
     private String name;
 
     @Embedded
-    private Address homeAddress;
+    private Address address;
 
-    @ElementCollection
+/*    @ElementCollection
     @CollectionTable(name="FAVORITE_FOODS", joinColumns =
         @JoinColumn(name = "MEMBER_ID"))
     @Column(name = "FOOD_NAME")
-    private Set<String> favoriteFoods = new HashSet<>();
+    private Set<String> favoriteFoods = new HashSet<>();*/
 
 //    @OrderColumn(name = "address_history_order")
 //    @ElementCollection
@@ -30,10 +30,11 @@ public class Member extends BaseEntity {
 //        @JoinColumn(name = "MEMBER_ID"))
 //    private List<Address> addressHistory = new ArrayList<>();
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+/*    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "MEMBER_ID")
     private List<AddressEntity> addressHistory = new ArrayList<>();
 
+ */
     @Embedded
     private Period period;
 
@@ -64,15 +65,15 @@ public class Member extends BaseEntity {
         this.name = name;
     }
 
-    public Address getHomeAddress() {
-        return homeAddress;
+    public Address getAddress() {
+        return address;
     }
 
-    public void setHomeAddress(Address homeAddress) {
-        this.homeAddress = homeAddress;
+    public void setAddress(Address address) {
+        this.address = address;
     }
 
-    public Set<String> getFavoriteFoods() {
+/*    public Set<String> getFavoriteFoods() {
         return favoriteFoods;
     }
 
@@ -86,5 +87,5 @@ public class Member extends BaseEntity {
 
     public void setAddressHistory(List<AddressEntity> addressHistory) {
         this.addressHistory = addressHistory;
-    }
+    }*/
 }

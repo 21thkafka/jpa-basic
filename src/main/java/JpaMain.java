@@ -102,7 +102,7 @@ public class JpaMain {
             em.persist(member);*/
 
             //값타입 컬렉션 연습
-            Member member = new Member();
+    /*        Member member = new Member();
             member.setName("member1");
             member.setHomeAddress(new Address("homeCity1", "street2", "111-222"));
             member.getFavoriteFoods().add("치킨");
@@ -122,7 +122,7 @@ public class JpaMain {
             em.clear();
 
             System.out.println("================ START =============");
-            Member findMember = em.find(Member.class, member.getId());
+            Member findMember = em.find(Member.class, member.getId());*/
             //컬렉션들은 지연로딩
         /*    List<Address> addressesHistory = findMember.getAddressHistory();
             for (Address address : addressesHistory){
@@ -134,17 +134,18 @@ public class JpaMain {
             }*/
             //homeCity -> newCity
 //            findMember.getHomeAddress().setCity("newCity"); //이렇게 수정하면 안됨
-            Address old = findMember.getHomeAddress();
+    /*        Address old = findMember.getHomeAddress();
             findMember.setHomeAddress(new Address("newCity", old.getStreet(), old.getZipcode()));
 
             //치킨 -> 한식
             findMember.getFavoriteFoods().remove("치킨");
-            findMember.getFavoriteFoods().add("한식");
+            findMember.getFavoriteFoods().add("한식");*/
 
             //old1 -> new1, member 도메인에 equals가 제대로 구현되어 있어야함, 해당 member_id인 address 데이터를 다 지우고 insert 방식
             //findMember.getAddressHistory().remove(new Address("oldCity1", "street2", "111-222"));
             //findMember.getAddressHistory().add(new Address("newCity1", "street2", "111-222"));
             //다루기 까다로우므로 실무에서 값타입 컬렉션 대신 1 대 다 엔티티 관계를 고려
+
 
             tx.commit();
         } catch (Exception e){
